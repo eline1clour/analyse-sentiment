@@ -1,0 +1,5 @@
+nltk
+textblob
+textblob_fr
+pandas
+scikit-learn
