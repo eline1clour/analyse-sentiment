@@ -7,7 +7,7 @@ L'objectif est de déterminer si l'opinion exprimée dans un avis est **positive
 
 Deux approches sont implémentées : 
 - **Approche naïve** : basée sur des règles simples et des dictionnaires.
-- **Approche intelligente** : approche plus avancée pour améliorer la détection de la polarité.
+- **Approche intelligente** : approche plus avancée basée sur la bibliothèque TextBlob.
 
 Les performances des deux approches sont ensuite évaluées à l'aide de différentes métriques.
 
@@ -47,8 +47,9 @@ Ce fichier constitue le **gold standard**, utilisé pour évaluer les performanc
 
 | Script  | Description |
 | --------|-------------|
-| `detect_polarite.py` | Prédit la polarité (positif, négatif, neutre) pour chaque avis |
+| `detect_polarite.py` | Prédit la polarité (positif, négatif, neutre) pour chaque avis sur une liste de mots fixe|
 | `eval_system_polarite.py` | Évalue les performances du système |
+
 Cette approche repose sur des **règles simples et des dictionnaires de mots positifs et négatifs**. 
 Le dictionnaire a été construit **manuellement**, en prenant les mots qui correspondent le plus généralement à une opinion positive et négative.
 
@@ -58,6 +59,7 @@ Le dictionnaire a été construit **manuellement**, en prenant les mots qui corr
 | --------|-------------|
 | `detect_polarite.py` | Prédit la polarité des avis avec TextBlob |
 | `eval_system.py` | Évalue les performances du modèle |
+
 Cette approche utilise la **bibliothèque TextBlob de TAL** pour améliorer la détection de sentiment.
 
 ---
@@ -79,16 +81,16 @@ python -m pip install -r requirements.txt
 
 ```bash
 cd approcheNaïve
-python -m detect_polarite
-python - m eval_system_polarite
+python3 -m detect_polarite
+python3 - m eval_system_polarite
 ```
 
 ### Approche intelligente
 
 ```bash
 cd approcheIntelligente
-python -m detect_polarite
-python -m eval_system
+python3 -m detect_polarite
+python3 -m eval_system
 ```
 ---
 
@@ -124,12 +126,13 @@ avis9: négatif
 
 ## Évaluation du système
 Les scripts d'évaluation calculent plusieurs métriques :
-- **Matrice de confusion**
-- **Accuracy**
-- **Précision**
-- **Rappel**
-- **F1-score**
-- **Macro-average**
+- **Matrice de confusion** : tableau comparant les prédictions du modèle avec les valeurs réelles pour identifier les bonnes et mauvaises classifications.
+- **Accuracy** : prédictions totale correcte parmi toutes les prédictions.
+- **Précision** : proportion des éléments prédit positif qui sont réellement positif.
+- **Rappel** : proportion des éléments positif réellement détectés.
+- **F1-score** : moyenne entre la précision et le rappel permettant d'équilibrer les deux.
+- **Macro-average** : moyenne des métriques calculées pour chaque classe, en leur donnant tous le même poids.
+- **Micro-average** : moyenne calculée sur l’ensemble des prédictions, où les classes les plus fréquentes influencent davantage le résultat final.
 
 Ces métriques permettent de mesurer la capacité du système à prédire correctement la polarité des avis.
 Plus les valeurs sont proches de 1, meilleures sont les performances du modèle.
